@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Check Employee ID</title>
+  <script>
+    async function checkEmployeeId(employeeId) {
+      const url = 'https://script.google.com/macros/s/AKfycbwuEU1ghfpP7eFeIhqLo1WuubUcxoGPmU7R0dVp9B4Fj-bnBlaAg2Lu5zJVMItCVeVwEA/exec' + '?employeeId=' + employeeId;
+
+      try {
+        let response = await fetch(url);
+        if (response.ok) {
+          let data = await response.json();
+          if (data.exists) {
+            alert('Employee exists: ' + data.exists);
+          } else {
+            alert('Employee does not exist.');
+          }
+        } else {
+          alert('Network response was not ok.');
+        }
+      } catch (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+      }
+    }
+
+    function checkEmployee() {
+      const employeeId = document.getElementById('employeeId').value;
+      checkEmployeeId(employeeId);
+    }
+  </script>
+</head>
+<body>
+  <h1>Check Employee ID</h1>
+  <input type="text" id="employeeId" placeholder="Enter Employee ID" />
+  <button onclick="checkEmployee()">Check</button>
+</body>
+</html>
